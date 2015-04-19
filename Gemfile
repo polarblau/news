@@ -11,5 +11,6 @@ gem 'clockwork'
 gem 'nokogiri'
 gem 'httparty'
 gem 'rack-contrib'
+gem 'puma'
 
 # gem 'pry'
