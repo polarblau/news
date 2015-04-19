@@ -1,0 +1,22 @@
+---
+title: Welcome to Middleman
+body_class: index
+---
+
+%article
+  %section#hacker-news
+    %header
+      %h2
+        Hacker News
+    %ul
+      - data.hacker_news.each do |item|
+        = partial "item", :locals => { :item => item }
+
+
+  %section#designer-news
+    %header
+      %h2
+        Designer News
+    %ul
+      - data.designer_news.each do |item|
+        = partial "item", :locals => { :item => item }

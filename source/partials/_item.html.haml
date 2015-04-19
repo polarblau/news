@@ -1,0 +1,14 @@
+%li
+  = link_to item.url do
+    %h3
+      = item.title
+    %p.url
+      = simple_url item.url
+    %p.meta
+      %span.comments
+        = pluralize item.comments_count, "comment", "comments"
+      %span.votes
+        = pluralize item.votes_count, "vote", "votes"
+      %span.user
+        by
+        = item.user_name

@@ -1,0 +1,13 @@
+=unlisted
+  list-style: none
+  margin: 0
+  padding: 0
+
+=background-size-cover($image)
+  background: url($image) no-repeat center center
+  background-size: cover
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$image}', sizingMethod='scale')
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$image}', sizingMethod='scale')
+
+@function image-url($image)
+  @return url(#{$image-path}#{$image})
