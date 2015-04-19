@@ -9,6 +9,10 @@
         = pluralize item.comments_count, "comment", "comments"
       %span.votes
         = pluralize item.votes_count, "vote", "votes"
+    %p.meta
+      %span.created
+        Created
+        = item.created
       %span.user
         by
         = item.user_name
