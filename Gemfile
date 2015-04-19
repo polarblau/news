@@ -10,6 +10,6 @@ gem 'actionview'
 gem 'clockwork'
 gem 'nokogiri'
 gem 'httparty'
-gem 'rack_contrib'
+gem 'rack-contrib'
 
 # gem 'pry'
