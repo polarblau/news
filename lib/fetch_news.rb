@@ -17,4 +17,8 @@ task :fetch_news do
     File.open(HACKER_NEWS_FILE, 'w') { |f| f.write(entries.to_json) }
   end
   puts "Done."
+
+  puts "Rebuilding views..."
+  `bundle exec middleman build`
+  puts "Done."
 end
