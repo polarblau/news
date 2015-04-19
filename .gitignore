@@ -13,5 +13,5 @@
 # Ignore Sass' cache
 /.sass-cache
 
-/data/designer_news.json
-/data/hacker_news.json
+# /data/designer_news.json
+# /data/hacker_news.json
