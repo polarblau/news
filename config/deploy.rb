@@ -8,7 +8,7 @@ set :repo_url, 'git@github.com:polarblau/news.git'
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-# set :deploy_to, '/var/www/my_app_name'
+set :deploy_to, '/var/www/news_app'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -46,3 +46,13 @@ namespace :deploy do
   end
 
 end
+
+namespace :bundle do
+
+  desc "run bundle install and ensure all gem requirements are met"
+  task :install do
+    run "cd #{current_path} && bundle install  --without=test --no-update-sources"
+  end
+
+end
+before "deploy:restart", "bundle:install"
