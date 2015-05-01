@@ -12,5 +12,7 @@ gem 'nokogiri'
 gem 'httparty'
 gem 'rack-contrib'
 gem 'puma'
+gem 'capistrano'
+gem 'foreman'
 
 # gem 'pry'

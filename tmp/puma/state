@@ -1,0 +1,25 @@
+---
+pid: 9281
+config: !ruby/object:Puma::Configuration
+  options:
+    :min_threads: 4
+    :max_threads: 8
+    :quiet: false
+    :debug: false
+    :binds:
+    - unix:///Users/florianplank/Projects/personal/news_aggregate/tmp/puma/socket
+    :workers: 0
+    :daemon: false
+    :worker_directory: "/Users/florianplank/Projects/personal/news_aggregate"
+    :config_file: config/puma.rb
+    :mode: :http
+    :worker_timeout: 60
+    :worker_shutdown_timeout: 30
+    :pidfile: "/Users/florianplank/Projects/personal/news_aggregate/tmp/puma/pid"
+    :state: "/Users/florianplank/Projects/personal/news_aggregate/tmp/puma/state"
+    :rackup: "/Users/florianplank/Projects/personal/news_aggregate/config.ru"
+    :control_url: unix:///var/folders/xm/mmv5v9191yd7xbw4mg96f2580000gn/T/puma-status-1430507676553-9281
+    :control_url_temp: "/var/folders/xm/mmv5v9191yd7xbw4mg96f2580000gn/T/puma-status-1430507676553-9281"
+    :control_auth_token: f94ab855c61e66e657f154722ba0fbc
+    :tag: news_aggregate
+    :environment: development
