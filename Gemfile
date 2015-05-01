@@ -2,6 +2,7 @@
 # the following line to use "https"
 source 'http://rubygems.org'
 
+gem 'eventmachine', '1.0.4'
 gem 'middleman'
 gem 'middleman-livereload'
 gem 'bourbon'
