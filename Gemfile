@@ -14,6 +14,7 @@ gem 'rack-contrib'
 gem 'puma'
 gem 'capistrano'
 gem 'capistrano-rvm'
+gem 'capistrano-bundler'
 gem 'foreman'
 
 # gem 'pry'
