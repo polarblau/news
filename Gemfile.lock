@@ -19,6 +19,9 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (~> 1.3)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chunky_png (1.3.3)
@@ -165,6 +168,7 @@ DEPENDENCIES
   actionview
   bourbon
   capistrano
+  capistrano-rvm
   clockwork
   foreman
   httparty

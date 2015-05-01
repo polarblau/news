@@ -13,6 +13,7 @@ gem 'httparty'
 gem 'rack-contrib'
 gem 'puma'
 gem 'capistrano'
+gem 'capistrano-rvm'
 gem 'foreman'
 
 # gem 'pry'
