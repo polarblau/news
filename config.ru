@@ -1,6 +1,6 @@
 require 'rack'
 require 'rack/contrib/try_static'
-# require 'middleman'
+require 'middleman'
 
 # Serve files from the build directory
 use Rack::TryStatic,
@@ -13,4 +13,4 @@ run lambda{ |env|
   [ 404, { 'Content-Type'  => 'text/html'}, [ File.read(not_found) ]]
 }
 
-# run Middleman::Application.server
+run Middleman::Application.server
