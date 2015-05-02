@@ -16,6 +16,7 @@ gem 'puma'
 gem 'capistrano'
 gem 'capistrano-rvm'
 gem 'capistrano-bundler'
+gem 'capistrano-foreman'
 gem 'foreman'
 
 # gem 'pry'
