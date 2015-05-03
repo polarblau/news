@@ -71,12 +71,14 @@ namespace :foreman do
     on roles(:app) do
       within current_path do
         puts "", "EXPORT!", ""
-        execute [
-          'export rvmsudo_secure_path=0 && ',
-          "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
-          'rvmsudo',
-          "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
-        ].join(' ')
+        sudo "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
+
+        # execute [
+        #   'export rvmsudo_secure_path=0 && ',
+        #   "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
+        #   'rvmsudo',
+        #   "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
+        # ].join(' ')
       end
     end
   end
