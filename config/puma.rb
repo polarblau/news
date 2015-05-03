@@ -1,6 +1,6 @@
 root = "#{Dir.getwd}"
 
-# daemonize true
+daemonize true
 bind "unix://#{root}/tmp/puma/socket"
 pidfile "#{root}/tmp/puma/pid"
 state_path "#{root}/tmp/puma/state"

@@ -11,8 +11,8 @@ set :repo_url, 'git@github.com:polarblau/news.git'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/var/www/#{fetch(:application)}"
 
-set :foreman_use_sudo, true
-set :foreman_export_path, '/etc/init'
+# set :foreman_use_sudo, true
+# set :foreman_export_path, '/etc/init'
 
 set :rvm_ruby_version, '2.2.2'
 set :default_env, { :rvm_bin_path => '~/.rvm/bin' }
@@ -65,48 +65,48 @@ namespace :middleman do
   end
 end
 
-# namespace :foreman do
-#   desc "Export the Procfile to Ubuntu's upstart scripts"
-#   task :export do
-#     on roles(:app) do
-#       execute [
-#         "cd #{release_path} &&",
-#         'export rvmsudo_secure_path=0 && ',
-#         "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
-#         'rvmsudo',
-#         "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
-#       ].join(' ')
-#     end
-#   end
+namespace :foreman do
+  desc "Export the Procfile to Ubuntu's upstart scripts"
+  task :export do
+    on roles(:app) do
+      execute [
+        "cd #{release_path} &&",
+        'export rvmsudo_secure_path=0 && ',
+        "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
+        'rvmsudo',
+        "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
+      ].join(' ')
+    end
+  end
 
-#   desc "Start the application services"
-#   task :start do
-#     on roles(:app) do
-#       within current_path do
-#         execute :sudo, "bundle exec foreman start #{fetch(:application)}"
-#       end
-#     end
+  desc "Start the application services"
+  task :start do
+    on roles(:app) do
+      within current_path do
+        execute :sudo, "bundle exec foreman start #{fetch(:application)}"
+      end
+    end
 
-#   end
+  end
 
-#   desc "Stop the application services"
-#   task :stop do
-#     on roles(:app) do
-#       within current_path do
-#         execute :sudo, "bundle exec foreman stop #{fetch(:application)}"
-#       end
-#     end
-#   end
+  desc "Stop the application services"
+  task :stop do
+    on roles(:app) do
+      within current_path do
+        execute :sudo, "bundle exec foreman stop #{fetch(:application)}"
+      end
+    end
+  end
 
-#   desc "Restart the application services"
-#   task :restart do
-#     on roles(:app) do
-#       within current_path do
-#         execute :sudo, "bundle exec foreman start #{fetch(:application)} || bundle exec foreman restart #{fetch(:application)}"
-#       end
-#     end
-#   end
-# end
+  desc "Restart the application services"
+  task :restart do
+    on roles(:app) do
+      within current_path do
+        execute :sudo, "bundle exec foreman start #{fetch(:application)} || bundle exec foreman restart #{fetch(:application)}"
+      end
+    end
+  end
+end
 
 after "deploy:publishing", "middleman:build"
 after "deploy:publishing", "foreman:export"
