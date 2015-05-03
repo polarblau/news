@@ -1,16 +1,15 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
+set :user, 'flo'
 set :application, 'news_app'
 set :repo_url, 'git@github.com:polarblau/news.git'
-
-set :foreman_use_sudo, :rvm
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/var/www/news_app'
+set :deploy_to, "/var/www/#{fetch(:application)}"
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -48,3 +47,28 @@ namespace :deploy do
   end
 
 end
+
+namespace :foreman do
+  desc "Export the Procfile to Ubuntu's upstart scripts"
+  task :export, :roles => :app do
+    run "cd #{fetch(:deploy_to)}/current && bundle exec foreman export upstart /etc/init -a #{fetch(:application)} -u #{fetch(:user)} -l /var/#{fetch(:application)}/log"
+  end
+
+  desc "Start the application services"
+  task :start, :roles => :app do
+    sudo "start #{fetch(:application)}"
+  end
+
+  desc "Stop the application services"
+  task :stop, :roles => :app do
+    sudo "stop #{fetch(:application)}"
+  end
+
+  desc "Restart the application services"
+  task :restart, :roles => :app do
+    run "sudo start #{fetch(:application)} || sudo restart #{fetch(:application)}"
+  end
+end
+
+after "deploy:update", "foreman:export"
+after "deploy:update", "foreman:restart"
