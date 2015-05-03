@@ -49,9 +49,10 @@ namespace :deploy do
 end
 
 namespace :middleman do
+  desc "Build views"
   task :build do
     on roles(:app) do
-      within current_path do
+      within release_path do
         execute 'bundle exec middleman build'
       end
     end
@@ -75,7 +76,7 @@ namespace :foreman do
   desc "Start the application services"
   task :start do
     on roles(:app) do
-      within current_path do
+      within release_path do
         execute :sudo, "bundle exec foreman start #{fetch(:application)}"
       end
     end
@@ -85,7 +86,7 @@ namespace :foreman do
   desc "Stop the application services"
   task :stop do
     on roles(:app) do
-      within current_path do
+      within release_path do
         execute :sudo, "bundle exec foreman stop #{fetch(:application)}"
       end
     end
