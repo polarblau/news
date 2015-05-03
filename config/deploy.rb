@@ -56,6 +56,7 @@ namespace :middleman do
   task :build do
     on roles(:app) do
       within release_path do
+        puts "", "Current dir: #{Dir.pwd}", ""
         execute 'bundle exec middleman build'
       end
     end
@@ -105,6 +106,6 @@ namespace :foreman do
   end
 end
 
+after "deploy:publishing", "middleman:build"
 after "deploy:publishing", "foreman:export"
 after "deploy:publishing", "foreman:restart"
-after "deploy", "middleman:build"
