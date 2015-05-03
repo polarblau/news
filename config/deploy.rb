@@ -107,5 +107,5 @@ namespace :foreman do
 end
 
 after "deploy:publishing", "middleman:build"
-after "deploy:publishing", "foreman:export"
-after "deploy:publishing", "foreman:restart"
+after "deploy:finished", "foreman:export"
+after "deploy:finished", "foreman:restart"
