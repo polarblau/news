@@ -1,5 +1,5 @@
 ---
-pid: 9281
+pid: 14028
 config: !ruby/object:Puma::Configuration
   options:
     :min_threads: 4
@@ -18,8 +18,8 @@ config: !ruby/object:Puma::Configuration
     :pidfile: "/Users/florianplank/Projects/personal/news_aggregate/tmp/puma/pid"
     :state: "/Users/florianplank/Projects/personal/news_aggregate/tmp/puma/state"
     :rackup: "/Users/florianplank/Projects/personal/news_aggregate/config.ru"
-    :control_url: unix:///var/folders/xm/mmv5v9191yd7xbw4mg96f2580000gn/T/puma-status-1430507676553-9281
-    :control_url_temp: "/var/folders/xm/mmv5v9191yd7xbw4mg96f2580000gn/T/puma-status-1430507676553-9281"
-    :control_auth_token: f94ab855c61e66e657f154722ba0fbc
+    :control_url: unix:///var/folders/xm/mmv5v9191yd7xbw4mg96f2580000gn/T/puma-status-1430662845192-14028
+    :control_url_temp: "/var/folders/xm/mmv5v9191yd7xbw4mg96f2580000gn/T/puma-status-1430662845192-14028"
+    :control_auth_token: 194c6621e0ee7915c6b7c07fa29f8
     :tag: news_aggregate
     :environment: development
