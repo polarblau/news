@@ -56,7 +56,7 @@ namespace :middleman do
   task :build do
     on roles(:app) do
       within release_path do
-        puts "", "Current dir: #{Dir.pwd}", ""
+        puts "", release_path, current_path, `pwd`, ""
         execute 'bundle exec middleman build'
       end
     end
