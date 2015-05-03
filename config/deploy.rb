@@ -69,13 +69,15 @@ namespace :foreman do
   desc "Export the Procfile to Ubuntu's upstart scripts"
   task :export do
     on roles(:app) do
-      execute [
-        "cd #{release_path} &&",
-        'export rvmsudo_secure_path=0 && ',
-        "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
-        'rvmsudo',
-        "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
-      ].join(' ')
+      within current_path do
+        puts "", "EXPORT!", ""
+        execute [
+          'export rvmsudo_secure_path=0 && ',
+          "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
+          'rvmsudo',
+          "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
+        ].join(' ')
+      end
     end
   end
 
@@ -83,7 +85,8 @@ namespace :foreman do
   task :start do
     on roles(:app) do
       within current_path do
-        execute :sudo, "bundle exec foreman start #{fetch(:application)}"
+        sudo "start #{fetch(:application)}"
+        # execute :sudo, "bundle exec foreman start #{fetch(:application)}"
       end
     end
 
@@ -93,7 +96,7 @@ namespace :foreman do
   task :stop do
     on roles(:app) do
       within current_path do
-        execute :sudo, "bundle exec foreman stop #{fetch(:application)}"
+        sudo "stop #{fetch(:application)}"
       end
     end
   end
@@ -102,7 +105,7 @@ namespace :foreman do
   task :restart do
     on roles(:app) do
       within current_path do
-        execute :sudo, "bundle exec foreman start #{fetch(:application)} || bundle exec foreman restart #{fetch(:application)}"
+        run "sudo start #{fetch(:application)} || sudo restart #{fetch(:application)}"
       end
     end
   end
@@ -110,4 +113,4 @@ end
 
 after "deploy:publishing", "middleman:build"
 after "deploy:publishing", "foreman:export"
-after "deploy:publishing", "foreman:restart"
+after "deploy:publishing", "foreman:start"
