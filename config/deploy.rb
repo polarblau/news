@@ -50,25 +50,43 @@ end
 
 namespace :foreman do
   desc "Export the Procfile to Ubuntu's upstart scripts"
-  task :export, :roles => :app do
-    run "cd #{fetch(:deploy_to)}/current && bundle exec foreman export upstart /etc/init -a #{fetch(:application)} -u #{fetch(:user)} -l /var/#{fetch(:application)}/log"
+  task :export do
+    on roles(:app) do
+      within current_path do
+        execute :rvm, :exec, "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
+      end
+    end
+
   end
 
   desc "Start the application services"
-  task :start, :roles => :app do
-    sudo "start #{fetch(:application)}"
+  task :start do
+    on roles(:app) do
+      within current_path do
+        execute :rvm, :exec, "foreman start #{fetch(:application)}"
+      end
+    end
+
   end
 
   desc "Stop the application services"
-  task :stop, :roles => :app do
-    sudo "stop #{fetch(:application)}"
+  task :stop do
+    on roles(:app) do
+      within current_path do
+        execute :rvm, :exec, "foreman stop #{fetch(:application)}"
+      end
+    end
   end
 
   desc "Restart the application services"
-  task :restart, :roles => :app do
-    run "sudo start #{fetch(:application)} || sudo restart #{fetch(:application)}"
+  task :restart do
+    on roles(:app) do
+      within current_path do
+        execute :rvm, :exec, "foreman start #{fetch(:application)} || foreman restart #{fetch(:application)}"
+      end
+    end
   end
 end
 
-after "deploy:update", "foreman:export"
-after "deploy:update", "foreman:restart"
+after "deploy:publishing", "foreman:export"
+after "deploy:publishing", "foreman:restart"
