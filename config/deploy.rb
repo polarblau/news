@@ -66,7 +66,7 @@ namespace :foreman do
   task :start do
     on roles(:app) do
       within current_path do
-        execute :sudo, "foreman start #{fetch(:application)}"
+        execute :rvmsudo, "foreman start #{fetch(:application)}"
       end
     end
 
@@ -76,7 +76,7 @@ namespace :foreman do
   task :stop do
     on roles(:app) do
       within current_path do
-        execute :sudo, "foreman stop #{fetch(:application)}"
+        execute :rvmsudo, "foreman stop #{fetch(:application)}"
       end
     end
   end
@@ -85,7 +85,7 @@ namespace :foreman do
   task :restart do
     on roles(:app) do
       within current_path do
-        execute :sudo, "foreman start #{fetch(:application)} || foreman restart #{fetch(:application)}"
+        execute :rvmsudo, "foreman start #{fetch(:application)} || foreman restart #{fetch(:application)}"
       end
     end
   end
