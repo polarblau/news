@@ -48,6 +48,14 @@ namespace :deploy do
 
 end
 
+namespace :middleman do
+  task :build do
+    on roles(:app) do
+      execute 'bundle exec middleman build'
+    end
+  end
+end
+
 namespace :foreman do
   desc "Export the Procfile to Ubuntu's upstart scripts"
   task :export do
@@ -91,5 +99,6 @@ namespace :foreman do
   end
 end
 
+after "deploy:publishing", "middleman:build"
 after "deploy:publishing", "foreman:export"
 after "deploy:publishing", "foreman:restart"
