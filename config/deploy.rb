@@ -12,7 +12,7 @@ set :repo_url, 'git@github.com:polarblau/news.git'
 set :deploy_to, "/var/www/#{fetch(:application)}"
 
 set :rvm_ruby_version, '2.2.2'
-set :default_env, { :rvm_bin_path => '~/.rvm/bin' }
+# set :default_env, { :rvm_bin_path => '~/.rvm/bin' }
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -57,7 +57,7 @@ namespace :middleman do
     on roles(:app) do
       within release_path do
         puts "", release_path, current_path, `pwd`, ""
-        execute :rvm, 'bundle exec middleman build'
+        execute 'bundle exec middleman build'
       end
     end
   end
