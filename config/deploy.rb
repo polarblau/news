@@ -108,4 +108,4 @@ end
 
 after "deploy:publishing", "middleman:build"
 after "deploy:publishing", "foreman:export"
-after "deploy:publishing", "foreman:start"
+after "deploy:publishing", "foreman:restart"
