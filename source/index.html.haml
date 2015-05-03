@@ -20,3 +20,8 @@ body_class: index
     %ul
       - data.designer_news.each do |item|
         = partial "item", :locals => { :item => item }
+
+  %section#weather
+    %header
+      %h2
+        Weather
