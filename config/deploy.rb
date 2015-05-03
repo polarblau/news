@@ -50,20 +50,26 @@ end
 
 namespace :foreman do
   desc "Export the Procfile to Ubuntu's upstart scripts"
+
+
+
   task :export do
     on roles(:app) do
-      within current_path do
-        execute :rvm, :exec, "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
-      end
+      execute [
+        "cd #{release_path} &&",
+        'export rvmsudo_secure_path=0 && ',
+        "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
+        'rvmsudo',
+        "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
+      ].join(' ')
     end
-
   end
 
   desc "Start the application services"
   task :start do
     on roles(:app) do
       within current_path do
-        execute :rvm, :exec, "foreman start #{fetch(:application)}"
+        execute :sudo, "foreman start #{fetch(:application)}"
       end
     end
 
@@ -73,7 +79,7 @@ namespace :foreman do
   task :stop do
     on roles(:app) do
       within current_path do
-        execute :rvm, :exec, "foreman stop #{fetch(:application)}"
+        execute :sudo, "foreman stop #{fetch(:application)}"
       end
     end
   end
@@ -82,7 +88,7 @@ namespace :foreman do
   task :restart do
     on roles(:app) do
       within current_path do
-        execute :rvm, :exec, "foreman start #{fetch(:application)} || foreman restart #{fetch(:application)}"
+        execute :sudo, "foreman start #{fetch(:application)} || foreman restart #{fetch(:application)}"
       end
     end
   end
