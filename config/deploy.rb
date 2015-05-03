@@ -70,7 +70,6 @@ namespace :foreman do
   task :export do
     on roles(:app) do
       within current_path do
-        puts "", "EXPORT!", ""
         sudo "bundle exec foreman export upstart /etc/init --procfile=./Procfile -a #{fetch(:application)} -u #{fetch(:user)} -l #{current_path}/log"
 
         # execute [
@@ -86,10 +85,8 @@ namespace :foreman do
   desc "Start the application services"
   task :start do
     on roles(:app) do
-      within current_path do
-        sudo "start #{fetch(:application)}"
-        # execute :sudo, "bundle exec foreman start #{fetch(:application)}"
-      end
+      sudo "start #{fetch(:application)}"
+      # execute :sudo, "bundle exec foreman start #{fetch(:application)}"
     end
 
   end
@@ -97,18 +94,14 @@ namespace :foreman do
   desc "Stop the application services"
   task :stop do
     on roles(:app) do
-      within current_path do
-        sudo "stop #{fetch(:application)}"
-      end
+      sudo "stop #{fetch(:application)}"
     end
   end
 
   desc "Restart the application services"
   task :restart do
     on roles(:app) do
-      within current_path do
-        run "sudo start #{fetch(:application)} || sudo restart #{fetch(:application)}"
-      end
+      execute "sudo stop #{fetch(:application)} || sudo start #{fetch(:application)}"
     end
   end
 end
