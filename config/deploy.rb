@@ -51,7 +51,9 @@ end
 namespace :middleman do
   task :build do
     on roles(:app) do
-      execute 'bundle exec middleman build'
+      within current_path do
+        execute 'bundle exec middleman build'
+      end
     end
   end
 end
