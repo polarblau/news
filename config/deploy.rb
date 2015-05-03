@@ -11,6 +11,8 @@ set :repo_url, 'git@github.com:polarblau/news.git'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/var/www/#{fetch(:application)}"
 
+set :foreman_export_path, '/etc/init'
+
 set :rvm_ruby_version, '2.2.2'
 set :default_env, { :rvm_bin_path => '~/.rvm/bin' }
 
