@@ -57,7 +57,7 @@ namespace :middleman do
     on roles(:app) do
       within release_path do
         puts "", release_path, current_path, `pwd`, ""
-        execute 'bundle exec middleman build'
+        execute :rvm, 'bundle exec middleman build'
       end
     end
   end
