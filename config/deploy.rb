@@ -56,7 +56,7 @@ namespace :middleman do
   task :build do
     on roles(:app) do
       within release_path do
-        run '~/.rvm/bin/rvm default do bundle exec middleman build'
+        execute '~/.rvm/bin/rvm default do bundle exec middleman build'
       end
     end
   end
