@@ -11,7 +11,6 @@ class HackerNews
 
   def fetch(&block)
     entries = []
-
     load_rows.each_with_index do |row, index|
       # Primary row
       if index.even?
@@ -31,6 +30,7 @@ class HackerNews
         entries.last[:user_href]      = user_href(row)
       end
     end
+
 
     entries = entries[0...MAX_ENTRIES]
 
@@ -65,27 +65,27 @@ private
   end
 
   def votes_count(row)
-    sub_text(row).css('span.score').text.to_i
+    sub_text(row).css('span.score').text.to_i rescue 0
   end
 
   def comments_count(row)
-    sub_text(row).css('a').last.text.to_i
+    sub_text(row).css('a').last.text.to_i rescue 0
   end
 
   def href(row)
-    ENDPOINT + sub_text(row).css('a').last.attr('href')
+    ENDPOINT + sub_text(row).css('a').last.attr('href') rescue nil
   end
 
   def created(row)
-    sub_text(row).css('a')[1].text
+    sub_text(row).css('a')[1].text rescue nil
   end
 
   def user_name(row)
-    sub_text(row).css('a').first.text
+    sub_text(row).css('a').first.text rescue nil
   end
 
   def user_href(row)
-    ENDPOINT + sub_text(row).css('a').first.attr('href')
+    ENDPOINT + sub_text(row).css('a').first.attr('href') rescue nil
   end
 
   def sub_text(row)

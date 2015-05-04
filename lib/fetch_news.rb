@@ -1,5 +1,6 @@
 require_relative './hacker_news'
 require_relative './designer_news'
+require 'pry'
 
 DESIGNER_NEWS_FILE = File.expand_path("../../data/designer_news.json", __FILE__)
 HACKER_NEWS_FILE   = File.expand_path("../../data/hacker_news.json", __FILE__)
