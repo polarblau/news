@@ -12,12 +12,20 @@ module Clockwork
   HACKER_NEWS_FILE   = File.expand_path("../../data/hacker_news.json", __FILE__)
 
   every(10.minutes, 'fetch.all.news') do
+    puts "Fetching news from Designer News..."
     DesignerNews.new.fetch do |entries|
       File.open(DESIGNER_NEWS_FILE, 'w') { |f| f.write(entries.to_json) }
     end
+    puts "Done."
 
+    puts "Fetching news from Hacker News..."
     HackerNews.new.fetch do |entries|
       File.open(HACKER_NEWS_FILE, 'w') { |f| f.write(entries.to_json) }
     end
+    puts "Done."
+
+    puts "Rebuilding views..."
+    `bundle exec middleman build`
+    puts "Done."
   end
 end
