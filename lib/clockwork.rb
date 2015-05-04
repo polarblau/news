@@ -11,7 +11,7 @@ module Clockwork
   DESIGNER_NEWS_FILE = File.expand_path("../../data/designer_news.json", __FILE__)
   HACKER_NEWS_FILE   = File.expand_path("../../data/hacker_news.json", __FILE__)
 
-  every(1.minute, 'fetch.all.news') do
+  every(10.minutes, 'fetch.all.news') do
     DesignerNews.new.fetch do |entries|
       File.open(DESIGNER_NEWS_FILE, 'w') { |f| f.write(entries.to_json) }
     end
