@@ -9,7 +9,7 @@ module Clockwork
 
   DESIGNER_NEWS_FILE = File.expand_path("../../data/designer_news.json", __FILE__)
   HACKER_NEWS_FILE   = File.expand_path("../../data/hacker_news.json", __FILE__)
-  LOG_FILE           = File.expand_path("../../../shared/log/clock.log", __FILE__)
+  LOG_FILE           = File.expand_path("../../../../shared/log/clock.log", __FILE__)
 
   logger = Logger.new(LOG_FILE, 10, 1024000)
 
